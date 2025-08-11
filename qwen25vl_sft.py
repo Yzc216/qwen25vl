@@ -7,7 +7,7 @@ from datasets import load_dataset
 from utils.utils import find_files,format_data_chartqa,collate_func,clear_memory
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
 
-MODEL_APTH = "/archive/share/cql/LLM-FoR-ALL/mini_vlm/models/qwen2.5vl"
+MODEL_PATH = "/archive/share/cql/LLM-FoR-ALL/mini_vlm/models/qwen2.5vl"
 DATA_PATH = "/archive/share/cql/LLM-FoR-ALL/mini_vlm/data/sft"
 TMP_PATH = "/archive/share/cql/aaa/tmp"
 OUTPUT_PATH = "/archive/share/cql/LLM-FoR-ALL/mini_vlm/results/sft-2"
@@ -28,10 +28,10 @@ test_dataset = [format_data_chartqa(sample) for sample in test_dataset]
 
 clear_memory()
 model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-    MODEL_APTH,
+    MODEL_PATH,
     torch_dtype=torch.bfloat16,
 )
-processor = AutoProcessor.from_pretrained(MODEL_APTH)
+processor = AutoProcessor.from_pretrained(MODEL_PATH)
 collate_fn = partial(collate_func, processor=processor)
 
 peft_config = LoraConfig(
